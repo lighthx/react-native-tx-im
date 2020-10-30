@@ -20,9 +20,51 @@ class TxImModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaMo
     return "TxIm"
   }
 
+  @ReactMethod
+  fun joinGroup(groupId:String,promise: Promise){
+    V2TIMManager.getInstance().joinGroup(groupId, "", object : V2TIMCallback {
+      override fun onSuccess() {
+        _groupId = groupId
+        promise.resolve("success")
+      }
+
+      override fun onError(p0: Int, p1: String?) {
+        promise.reject(p0.toString(), p1)
+      }
+
+    })
+  }
 
   @ReactMethod
-  fun init(sdkAppID: Int, userId: String, userSig: String, nickName: String, avatar: String, groupId: String, promise: Promise) {
+  fun login(userSig: String,userId:String,nickName:String,avatar: String,promise: Promise){
+    V2TIMManager.getInstance().login(userId, userSig, object : V2TIMCallback {
+      override fun onError(code: Int, message: String?) {
+        promise.reject(code.toString(), message)
+      }
+
+      override fun onSuccess() {
+        val info = V2TIMUserFullInfo()
+        info.setNickname(nickName)
+        info.faceUrl = avatar
+        V2TIMManager.getInstance().setSelfInfo(info, object : V2TIMCallback {
+          override fun onSuccess() {
+            promise.resolve("success")
+
+          }
+
+          override fun onError(code: Int, message: String?) {
+            promise.reject(code.toString(), message)
+          }
+
+        })
+
+      }
+    })
+  }
+
+
+  @ReactMethod
+  fun init(sdkAppID: Int,groupId: String, promise: Promise) {
     val config = V2TIMSDKConfig()
 
     config.setLogLevel(V2TIMSDKConfig.V2TIM_LOG_INFO)
@@ -36,7 +78,7 @@ class TxImModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaMo
               val map = Arguments.createMap()
               map.putString("type", "text")
               map.putString("avatar", sender?.faceUrl)
-              map.putString("name", sender?.nickName)
+              map.putString("nickName", sender?.nickName)
               map.putString("userId", sender?.userID)
               map.putString("content", text)
               sendEvent(map)
@@ -50,7 +92,7 @@ class TxImModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaMo
                 val map = Arguments.createMap()
                 map.putString("type", "custom")
                 map.putString("avatar", sender?.faceUrl)
-                map.putString("name", sender?.nickName)
+                map.putString("nickName", sender?.nickName)
                 map.putString("userId", sender?.userID)
                 map.putString("content", json)
                 sendEvent(map)
@@ -64,7 +106,7 @@ class TxImModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaMo
               map.putString("type", "text")
               map.putString("groupId",groupID)
               map.putString("avatar", sender?.faceUrl)
-              map.putString("name", sender?.nickName)
+              map.putString("nickName", sender?.nickName)
               map.putString("userId", sender?.userID)
               map.putString("content", text)
               sendEvent(map)
@@ -79,46 +121,14 @@ class TxImModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaMo
               map.putString("type", "custom")
               map.putString("avatar", sender?.faceUrl)
               map.putString("groupId",groupId)
-              map.putString("name", sender?.nickName)
+              map.putString("nickName", sender?.nickName)
               map.putString("userId", sender?.userID)
               map.putString("content", json)
               sendEvent(map)
             }
           }
         })
-        V2TIMManager.getInstance().login(userId, userSig, object : V2TIMCallback {
-          override fun onError(code: Int, message: String?) {
-            promise.reject(code.toString(), message)
-          }
-
-          override fun onSuccess() {
-            val info = V2TIMUserFullInfo()
-            info.setNickname(nickName)
-            info.faceUrl = avatar
-            V2TIMManager.getInstance().setSelfInfo(info, object : V2TIMCallback {
-              override fun onSuccess() {
-                V2TIMManager.getInstance().joinGroup(groupId, "", object : V2TIMCallback {
-                  override fun onSuccess() {
-                    _groupId = groupId
-                    promise.resolve("success")
-                  }
-
-                  override fun onError(p0: Int, p1: String?) {
-                    promise.reject(p0.toString(), p1)
-                  }
-
-                })
-
-              }
-
-              override fun onError(code: Int, message: String?) {
-                promise.reject(code.toString(), message)
-              }
-
-            })
-
-          }
-        })
+        promise.resolve("success")
         // 已经成功连接到腾讯云服务器
       }
 
@@ -130,9 +140,9 @@ class TxImModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaMo
   }
 
   @ReactMethod
-  fun sendTextMessage(message: String, promise: Promise) {
+  fun sendTextMessage(message: String,userId: String, promise: Promise) {
     val msg = V2TIMManager.getMessageManager().createTextMessage(message)
-    V2TIMManager.getMessageManager().sendMessage(msg, "", _groupId, 1, true, null, object : V2TIMSendCallback<V2TIMMessage> {
+    V2TIMManager.getMessageManager().sendMessage(msg, userId, null, 1, true, null, object : V2TIMSendCallback<V2TIMMessage> {
       override fun onSuccess(p0: V2TIMMessage?) {
         promise.resolve("success")
       }
@@ -148,13 +158,51 @@ class TxImModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaMo
   }
 
   @ReactMethod
-  fun sendCustomMessage(map: ReadableMap, promise: Promise) {
-    val type = map.getString("type")
-    val message = map.getString("message")
+  fun sendGroupTextMessage(message: String,groupId: String, promise: Promise) {
+    val msg = V2TIMManager.getMessageManager().createTextMessage(message)
+    V2TIMManager.getMessageManager().sendMessage(msg, null, groupId, 1, true, null, object : V2TIMSendCallback<V2TIMMessage> {
+      override fun onSuccess(p0: V2TIMMessage?) {
+        promise.resolve("success")
+      }
+
+      override fun onError(p0: Int, p1: String?) {
+        promise.reject(p0.toString(), p1)
+      }
+
+      override fun onProgress(p0: Int) {
+        TODO("Not yet implemented")
+      }
+    });
+  }
+
+  @ReactMethod
+  fun sendCustomMessage(type: String,message:String,userId:String, promise: Promise) {
+
     val json = String.format("{\"type\":%s,\"message\":%s}", type, message)
     val data = json.toByteArray()
     val msg = V2TIMManager.getMessageManager().createCustomMessage(data);
-    V2TIMManager.getMessageManager().sendMessage(msg, "", _groupId, 1, true, null, object : V2TIMSendCallback<V2TIMMessage> {
+    V2TIMManager.getMessageManager().sendMessage(msg, userId, null, 1, true, null, object : V2TIMSendCallback<V2TIMMessage> {
+      override fun onSuccess(p0: V2TIMMessage?) {
+        promise.resolve("success")
+      }
+
+      override fun onError(p0: Int, p1: String?) {
+        promise.reject(p0.toString(), p1)
+      }
+
+      override fun onProgress(p0: Int) {
+        TODO("Not yet implemented")
+      }
+    });
+  }
+
+  @ReactMethod
+  fun sendGroupCustomMessage(type: String,message:String,groupId: String, promise: Promise) {
+
+    val json = String.format("{\"type\":%s,\"message\":%s}", type, message)
+    val data = json.toByteArray()
+    val msg = V2TIMManager.getMessageManager().createCustomMessage(data);
+    V2TIMManager.getMessageManager().sendMessage(msg, null, groupId, 1, true, null, object : V2TIMSendCallback<V2TIMMessage> {
       override fun onSuccess(p0: V2TIMMessage?) {
         promise.resolve("success")
       }
@@ -171,7 +219,6 @@ class TxImModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaMo
 
   @ReactMethod
   fun quit(){
-    V2TIMManager.getInstance().quitGroup(_groupId,null);
     V2TIMManager.getInstance().removeSimpleMsgListener(null)
     V2TIMManager.getInstance().logout(null)
 

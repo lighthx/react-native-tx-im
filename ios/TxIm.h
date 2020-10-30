@@ -1,6 +1,8 @@
 #import <React/RCTBridgeModule.h>
 #import <ImSDK.h>
+#import <React/RCTEventEmitter.h>
 
-@interface TxIm : NSObject <RCTBridgeModule,V2TIMSDKListener,V2TIMAdvancedMsgListener,V2TIMConversationListener,V2TIMGroupListener,V2TIMFriendshipListener>
-
+@interface TxIm : RCTEventEmitter <RCTBridgeModule,V2TIMSDKListener,V2TIMSimpleMsgListener,V2TIMConversationListener,V2TIMGroupListener>
+@property(copy,readwrite) RCTPromiseResolveBlock loginResolve;
+@property(copy,readwrite) RCTPromiseRejectBlock loginReject;
 @end
