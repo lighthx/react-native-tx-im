@@ -7,9 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		271DF4526B28AFAFB14C6A59 /* Pods_TxIm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F269821F2A82520C1D4705F9 /* Pods_TxIm.framework */; };
 		5E555C0D2413F4C50049A1A2 /* TxIm.m in Sources */ = {isa = PBXBuildFile; fileRef = B3E7B5891CC2AC0600A0062D /* TxIm.m */; };
-		944A57F0254AAA20007E8689 /* ImSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 944A57EF254AAA20007E8689 /* ImSDK.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -26,12 +24,8 @@
 
 /* Begin PBXFileReference section */
 		134814201AA4EA6300B7C361 /* libTxIm.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libTxIm.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		496B91ACFF0FF0D6EC7E0F20 /* Pods-TxIm.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TxIm.debug.xcconfig"; path = "Target Support Files/Pods-TxIm/Pods-TxIm.debug.xcconfig"; sourceTree = "<group>"; };
-		63CE221A7588BE2166DFD273 /* Pods-TxIm.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TxIm.release.xcconfig"; path = "Target Support Files/Pods-TxIm/Pods-TxIm.release.xcconfig"; sourceTree = "<group>"; };
-		944A57EF254AAA20007E8689 /* ImSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImSDK.framework; path = libs/ImSDK.framework; sourceTree = "<group>"; };
 		B3E7B5881CC2AC0600A0062D /* TxIm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TxIm.h; sourceTree = "<group>"; };
 		B3E7B5891CC2AC0600A0062D /* TxIm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TxIm.m; sourceTree = "<group>"; };
-		F269821F2A82520C1D4705F9 /* Pods_TxIm.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TxIm.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -39,8 +33,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				944A57F0254AAA20007E8689 /* ImSDK.framework in Frameworks */,
-				271DF4526B28AFAFB14C6A59 /* Pods_TxIm.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -58,11 +50,9 @@
 		58B511D21A9E6C8500147676 = {
 			isa = PBXGroup;
 			children = (
-				944A57EF254AAA20007E8689 /* ImSDK.framework */,
 				B3E7B5881CC2AC0600A0062D /* TxIm.h */,
 				B3E7B5891CC2AC0600A0062D /* TxIm.m */,
 				134814211AA4EA7D00B7C361 /* Products */,
-				948C74269B6708A55D5D08C1 /* Pods */,
 				7EF98F84B44DC111CFC1DC6A /* Frameworks */,
 			);
 			sourceTree = "<group>";
@@ -70,19 +60,8 @@
 		7EF98F84B44DC111CFC1DC6A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				F269821F2A82520C1D4705F9 /* Pods_TxIm.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		948C74269B6708A55D5D08C1 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				496B91ACFF0FF0D6EC7E0F20 /* Pods-TxIm.debug.xcconfig */,
-				63CE221A7588BE2166DFD273 /* Pods-TxIm.release.xcconfig */,
-			);
-			name = Pods;
-			path = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -270,18 +249,9 @@
 		};
 		58B511F01A9E6C8500147676 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 496B91ACFF0FF0D6EC7E0F20 /* Pods-TxIm.debug.xcconfig */;
 			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"/Users/huaxin/Desktop/myProject/szh_app_new/tx-im/ios/libs",
-				);
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"$(SRCROOT)/../../../React/**",
-					"$(SRCROOT)/../../react-native/React/**",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				HEADER_SEARCH_PATHS = "$(inherited)";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = TxIm;
@@ -291,18 +261,12 @@
 		};
 		58B511F11A9E6C8500147676 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 63CE221A7588BE2166DFD273 /* Pods-TxIm.release.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"/Users/huaxin/Desktop/myProject/szh_app_new/tx-im/ios/libs",
+					"$(SRCROOT)/libs",
 				);
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"$(SRCROOT)/../../../React/**",
-					"$(SRCROOT)/../../react-native/React/**",
-				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = TxIm;

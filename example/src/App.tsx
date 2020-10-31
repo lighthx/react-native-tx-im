@@ -1,12 +1,15 @@
 import * as React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
-import {init} from 'react-native-tx-im';
+import { init } from 'react-native-tx-im';
 import { useEffect } from 'react';
 
 export default function App() {
-    useEffect(()=>{
-       init("333").then()
-    },[])
+  useEffect(() => {
+    console.log(555);
+    init(1)
+      .then((v) => console.warn(v))
+      .catch((e) => console.warn(e));
+  }, []);
 
   return (
     <View style={styles.container}>

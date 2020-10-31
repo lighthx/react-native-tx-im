@@ -7,16 +7,8 @@ RCT_EXPORT_MODULE()
 
 // Example method
 // See // https://facebook.github.io/react-native/docs/native-modules-ios
-RCT_REMAP_METHOD(multiply,
-                 multiplyWithA:(nonnull NSNumber*)a withB:(nonnull NSNumber*)b
-                 withResolver:(RCTPromiseResolveBlock)resolve
-                 withRejecter:(RCTPromiseRejectBlock)reject)
-{
-  NSNumber *result = @([a floatValue] * [b floatValue]);
 
-  resolve(result);
-}
-RCT_REMAP_METHOD(init,init_sdkAppId:(NSNumber*)sdkAppId
+RCT_REMAP_METHOD(init,init_sdkAppId:(nonnull NSNumber*)sdkAppId
                  withResolver:(RCTPromiseResolveBlock)resolve
                  withRejecter:(RCTPromiseRejectBlock)reject)
 {
@@ -24,20 +16,23 @@ RCT_REMAP_METHOD(init,init_sdkAppId:(NSNumber*)sdkAppId
 V2TIMSDKConfig *config = [[V2TIMSDKConfig alloc] init];
 
 config.logLevel = V2TIM_LOG_INFO;
-
-[[V2TIMManager sharedInstance] initSDK:[sdkAppId intValue] config:config listener:self];
-    self.loginResolve=resolve;
-    self.loginReject=reject;
+    int sdkId =[sdkAppId intValue];
+    BOOL result=[[V2TIMManager sharedInstance] initSDK:sdkId config:config listener:self];
+    if(result){
+        resolve(@"success");
+    }else{
+        reject(@"failed",@"failed",nil);
+    }
 }
 
 RCT_REMAP_METHOD(
                   login,
-                  login_userSig:(NSString *)userSig
-                  login_userId:(NSString *)userId
-                  login_nickName:(NSString *)nickName
-                  login_avatar:(NSString *)avatar
-                  withResolver1:(RCTPromiseResolveBlock)resolve
-                  withRejecter1:(RCTPromiseRejectBlock)reject)
+                  login_userSig:(nonnull NSString *)userSig
+                  login_userId:(nonnull NSString *)userId
+                  login_nickName:(nonnull NSString *)nickName
+                  login_avatar:(nonnull NSString *)avatar
+                  withResolver1:(nonnull RCTPromiseResolveBlock)resolve
+                  withRejecter1:(nonnull RCTPromiseRejectBlock)reject)
                   {
                       [[V2TIMManager sharedInstance] login:userId userSig:userSig succ:^{
                           V2TIMUserFullInfo *info = [V2TIMUserFullInfo alloc];
@@ -56,7 +51,7 @@ RCT_REMAP_METHOD(
 }
 
 RCT_REMAP_METHOD(joinGroup,
-                 joinGroup_groupId:(NSString *)groupId
+                 joinGroup_groupId:(nonnull NSString *)groupId
                  withResolver2:(RCTPromiseResolveBlock)resolve
                  withRejecter2:(RCTPromiseRejectBlock)reject
                  ){
@@ -68,8 +63,8 @@ RCT_REMAP_METHOD(joinGroup,
 }
 
 RCT_REMAP_METHOD(sendTextMessage,
-                 sendTextMessage_message:(NSString *)message
-                 sendTextMessage_userId:(NSString *)userId
+                 sendTextMessage_message:(nonnull NSString *)message
+                 sendTextMessage_userId:(nonnull NSString *)userId
                  withResolver3:(RCTPromiseResolveBlock)resolve
                  withRejecter3:(RCTPromiseRejectBlock)reject
                  ){
@@ -81,8 +76,8 @@ RCT_REMAP_METHOD(sendTextMessage,
 }
 
 RCT_REMAP_METHOD(sendTextGroupMessage,
-                 sendTextMessage_message1:(NSString *)message
-                 sendTextMessage_groupId:(NSString *)groupId
+                 sendTextMessage_message1:(nonnull NSString *)message
+                 sendTextMessage_groupId:(nonnull NSString *)groupId
                  withResolver4:(RCTPromiseResolveBlock)resolve
                  withRejecter4:(RCTPromiseRejectBlock)reject
                  ){
@@ -94,9 +89,9 @@ RCT_REMAP_METHOD(sendTextGroupMessage,
 }
 
 RCT_REMAP_METHOD(sendCustomMessage,
-                 sendCustomMessage_type:(NSString *)type
-                 sendCustomMessage_message:(NSString *)message
-                 sendCustomMessage_userId:(NSString *)userId
+                 sendCustomMessage_type:(nonnull NSString *)type
+                 sendCustomMessage_message:(nonnull NSString *)message
+                 sendCustomMessage_userId:(nonnull NSString *)userId
                  withResolver5:(RCTPromiseResolveBlock)resolve
                  withRejecter5:(RCTPromiseRejectBlock)reject
                  ){
@@ -110,9 +105,9 @@ RCT_REMAP_METHOD(sendCustomMessage,
 }
 
 RCT_REMAP_METHOD(sendGroupCustomMessage,
-                 sendCustomMessage_type1:(NSString *)type
-                 sendCustomMessage_message1:(NSString *)message
-                 sendCustomMessage_groupId:(NSString *)groupId
+                 sendCustomMessage_type1:(nonnull NSString *)type
+                 sendCustomMessage_message1:(nonnull NSString *)message
+                 sendCustomMessage_groupId:(nonnull NSString *)groupId
                  withResolver6:(RCTPromiseResolveBlock)resolve
                  withRejecter6:(RCTPromiseRejectBlock)reject
                  ){
@@ -126,7 +121,7 @@ RCT_REMAP_METHOD(sendGroupCustomMessage,
 }
 
 RCT_REMAP_METHOD(getGroupMembers,
-                 getGroupMembers_groupId:(NSString *)groupId
+                 getGroupMembers_groupId:(nonnull NSString *)groupId
                  withResolver7:(RCTPromiseResolveBlock)resolve
                  withRejecter7:(RCTPromiseRejectBlock)reject
                  ){
@@ -210,17 +205,5 @@ RCT_REMAP_METHOD(quit,
     return @[@"txim"];
 }
 
-- (void)onConnecting {
-    // 正在连接到腾讯云服务器
-
-}
-- (void)onConnectSuccess {
-    // 已经成功连接到腾讯云服务器
-    self.loginResolve(@"success");
-}
-- (void)onConnectFailed:(int)code err:(NSString*)err {
-    // 连接腾讯云服务器失败
-    self.loginReject([NSString stringWithFormat:@"%d",code], err, nil);
-}
 
 @end
