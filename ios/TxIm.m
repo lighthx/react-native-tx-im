@@ -31,8 +31,8 @@ RCT_REMAP_METHOD(
                   login_userId:(nonnull NSString *)userId
                   login_nickName:(nonnull NSString *)nickName
                   login_avatar:(nonnull NSString *)avatar
-                  withResolver1:(nonnull RCTPromiseResolveBlock)resolve
-                  withRejecter1:(nonnull RCTPromiseRejectBlock)reject)
+                  withResolver1:(RCTPromiseResolveBlock)resolve
+                  withRejecter1:(RCTPromiseRejectBlock)reject)
                   {
                       [[V2TIMManager sharedInstance] login:userId userSig:userSig succ:^{
                           V2TIMUserFullInfo *info = [V2TIMUserFullInfo alloc];
