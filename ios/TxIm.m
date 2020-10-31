@@ -25,7 +25,7 @@ V2TIMSDKConfig *config = [[V2TIMSDKConfig alloc] init];
 
 config.logLevel = V2TIM_LOG_INFO;
 
-BOOL result=[[V2TIMManager sharedInstance] initSDK:[sdkAppId intValue] config:config listener:self];
+[[V2TIMManager sharedInstance] initSDK:[sdkAppId intValue] config:config listener:self];
     self.loginResolve=resolve;
     self.loginReject=reject;
 }
