@@ -7,7 +7,7 @@ import com.tencent.imsdk.v2.*
 
 
 class TxImModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaModule(reactContext) {
-  private var _groupId = ""
+
   private val eventName = "txim"
   private fun sendEvent(
     @Nullable params: WritableMap) {
@@ -24,7 +24,6 @@ class TxImModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaMo
   fun joinGroup(groupId:String,promise: Promise){
     V2TIMManager.getInstance().joinGroup(groupId, "", object : V2TIMCallback {
       override fun onSuccess() {
-        _groupId = groupId
         promise.resolve("success")
       }
 
@@ -33,6 +32,36 @@ class TxImModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaMo
       }
 
     })
+  }
+  @ReactMethod
+  fun getGroupMembers(groupId: String,promise: Promise){
+    V2TIMManager.getGroupManager().getGroupMemberList(
+      groupId,
+      V2TIMGroupMemberFullInfo.V2TIM_GROUP_MEMBER_FILTER_ALL,
+      0,
+      object :V2TIMValueCallback<V2TIMGroupMemberInfoResult>{
+        @Suppress("UNREACHABLE_CODE")
+        override fun onSuccess(p0: V2TIMGroupMemberInfoResult?) {
+          TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+          val result=Arguments.createArray();
+
+            p0?.memberInfoList?.forEach{
+              val map=Arguments.createMap();
+              map.putString("nickName",it.nickName)
+              map.putString("userId",it.userID)
+              map.putString("avatar",it.faceUrl)
+              result.pushMap(map)
+            }
+
+
+          promise.resolve(result)
+        }
+
+        override fun onError(code: Int, message: String?) {
+          promise.reject(code.toString(), message)
+        }
+      }
+    )
   }
 
   @ReactMethod

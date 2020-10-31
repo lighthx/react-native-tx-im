@@ -126,6 +126,8 @@ RCT_REMAP_METHOD(sendGroupCustomMessage,
     }];
 }
 
+
+
 -(void)onRecvC2CTextMessage:(NSString *)msgID sender:(V2TIMUserInfo *)info text:(NSString *)text{
     NSDictionary* data=@{
         @"type":@"text",
@@ -136,6 +138,7 @@ RCT_REMAP_METHOD(sendGroupCustomMessage,
     };
     [self sendEventWithName:@"txim" body:data];
 }
+
 
 -(void)onRecvC2CCustomMessage:(NSString *)msgID sender:(V2TIMUserInfo *)info customData:(NSData *)data{
     NSDictionary* data1=@{
