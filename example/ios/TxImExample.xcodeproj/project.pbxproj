@@ -7,23 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0D1336C0461A88D01186E375 /* libPods-TxImExample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BCEA90A70F4BEAD7E9FA28B2 /* libPods-TxImExample.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		20F357B024636CDF00C146DC /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20F357AF24636CDF00C146DC /* File.swift */; };
+		D8D31CFC4D125AC2BBC05F7C /* libPods-TxImExample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 93AC4CD8A050996B2BE46F85 /* libPods-TxImExample.a */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		94D035E4254ABA2F0094AE6E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 94D035E0254ABA2F0094AE6E /* TxIm.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 134814201AA4EA6300B7C361;
-			remoteInfo = TxIm;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
@@ -39,10 +29,7 @@
 		20F357AF24636CDF00C146DC /* File.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		4D7192F03A36A017E887435B /* Pods-TxImExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TxImExample.release.xcconfig"; path = "Target Support Files/Pods-TxImExample/Pods-TxImExample.release.xcconfig"; sourceTree = "<group>"; };
 		871719007ECC5EAD276C345C /* Pods-TxImExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TxImExample.debug.xcconfig"; path = "Target Support Files/Pods-TxImExample/Pods-TxImExample.debug.xcconfig"; sourceTree = "<group>"; };
-		944A582A254AB6E5007E8689 /* ImSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImSDK.framework; path = ../../ios/libs/ImSDK.framework; sourceTree = "<group>"; };
-		94D035E0254ABA2F0094AE6E /* TxIm.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = TxIm.xcodeproj; path = ../../ios/TxIm.xcodeproj; sourceTree = "<group>"; };
-		BCEA90A70F4BEAD7E9FA28B2 /* libPods-TxImExample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TxImExample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		93AC4CD8A050996B2BE46F85 /* libPods-TxImExample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TxImExample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,7 +37,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0D1336C0461A88D01186E375 /* libPods-TxImExample.a in Frameworks */,
+				D8D31CFC4D125AC2BBC05F7C /* libPods-TxImExample.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -83,9 +70,7 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				944A582A254AB6E5007E8689 /* ImSDK.framework */,
-				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				BCEA90A70F4BEAD7E9FA28B2 /* libPods-TxImExample.a */,
+				93AC4CD8A050996B2BE46F85 /* libPods-TxImExample.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -100,7 +85,6 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				94D035E0254ABA2F0094AE6E /* TxIm.xcodeproj */,
 				20F357AF24636CDF00C146DC /* File.swift */,
 				20F357AE24636CDF00C146DC /* TxImExample-Bridging-Header.h */,
 				13B07FAE1A68108700A75B9A /* TxImExample */,
@@ -119,14 +103,6 @@
 			isa = PBXGroup;
 			children = (
 				13B07F961A680F5B00A75B9A /* TxImExample.app */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		94D035E1254ABA2F0094AE6E /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				94D035E5254ABA2F0094AE6E /* libTxIm.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -181,28 +157,12 @@
 			mainGroup = 83CBB9F61A601CBA00E9B192;
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 94D035E1254ABA2F0094AE6E /* Products */;
-					ProjectRef = 94D035E0254ABA2F0094AE6E /* TxIm.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				13B07F861A680F5B00A75B9A /* TxImExample */,
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		94D035E5254ABA2F0094AE6E /* libTxIm.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libTxIm.a;
-			remoteRef = 94D035E4254ABA2F0094AE6E /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		13B07F8E1A680F5B00A75B9A /* Resources */ = {
@@ -238,7 +198,7 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-TxImExample/Pods-TxImExample-frameworks.sh",
-				"${PODS_ROOT}/TXIMSDK_iOS/ImSDK.framework",
+				"${PODS_ROOT}/../../../ios/libs/ImSDK.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -326,7 +286,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
-				FRAMEWORK_SEARCH_PATHS = "/Users/huaxin/Desktop/myProject/szh_app_new/tx-im/ios/libs";
+				FRAMEWORK_SEARCH_PATHS = "";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"${PODS_ROOT}/Headers/Public\"",
@@ -357,7 +317,6 @@
 					"\"${PODS_ROOT}/Headers/Public/glog\"",
 					"\"${PODS_ROOT}/Headers/Public/react-native-tx-im\"",
 					"\"$(PODS_ROOT)/Headers/Private/React-Core\"",
-					"/Users/huaxin/Desktop/myProject/szh_app_new/tx-im/ios/libs",
 				);
 				INFOPLIST_FILE = TxImExample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -386,7 +345,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				FRAMEWORK_SEARCH_PATHS = "/Users/huaxin/Desktop/myProject/szh_app_new/tx-im/ios/libs";
+				FRAMEWORK_SEARCH_PATHS = "";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"${PODS_ROOT}/Headers/Public\"",
@@ -417,7 +376,6 @@
 					"\"${PODS_ROOT}/Headers/Public/glog\"",
 					"\"${PODS_ROOT}/Headers/Public/react-native-tx-im\"",
 					"\"$(PODS_ROOT)/Headers/Private/React-Core\"",
-					"/Users/huaxin/Desktop/myProject/szh_app_new/tx-im/ios/libs",
 				);
 				INFOPLIST_FILE = TxImExample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
