@@ -1,17 +1,16 @@
 import * as React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
-import TxIm from 'react-native-tx-im';
+import {init} from 'react-native-tx-im';
+import { useEffect } from 'react';
 
 export default function App() {
-  const [result, setResult] = React.useState<number | undefined>();
-
-  React.useEffect(() => {
-    TxIm.multiply(3, 7).then(setResult);
-  }, []);
+    useEffect(()=>{
+       init("333").then()
+    },[])
 
   return (
     <View style={styles.container}>
-      <Text>Result: {result}</Text>
+      <Text>Result</Text>
     </View>
   );
 }

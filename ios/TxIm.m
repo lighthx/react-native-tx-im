@@ -82,7 +82,6 @@ RCT_REMAP_METHOD(sendTextMessage,
 
 RCT_REMAP_METHOD(sendTextGroupMessage,
                  sendTextMessage_message1:(NSString *)message
-                 sendTextMessage_userId1:(NSString *)userId
                  sendTextMessage_groupId:(NSString *)groupId
                  withResolver4:(RCTPromiseResolveBlock)resolve
                  withRejecter4:(RCTPromiseRejectBlock)reject
@@ -126,13 +125,45 @@ RCT_REMAP_METHOD(sendGroupCustomMessage,
     }];
 }
 
+RCT_REMAP_METHOD(getGroupMembers,
+                 getGroupMembers_groupId:(NSString *)groupId
+                 withResolver7:(RCTPromiseResolveBlock)resolve
+                 withRejecter7:(RCTPromiseRejectBlock)reject
+                 ){
+    [[V2TIMManager sharedInstance] getGroupMemberList:groupId filter:V2TIM_GROUP_MEMBER_FILTER_ALL nextSeq:0 succ:^(uint64_t nextSeq, NSArray<V2TIMGroupMemberFullInfo *> *memberList) {
+        NSMutableArray *result = [NSMutableArray array];
+        for(int i=0;i<memberList.count;i++){
+            NSDictionary* map=@{
+                @"nickName":memberList[i].nickName,
+                @"avatar":memberList[i].faceURL,
+                @"userId":memberList[i].userID,
+            };
+            [result addObject:map];
+        }
+        resolve(result);
+    } fail:^(int code, NSString *desc) {
+        reject([NSString stringWithFormat:@"%d",code],desc,nil);
+    }];
+}
+
+RCT_REMAP_METHOD(quit,
+                 withResolver8:(RCTPromiseResolveBlock)resolve
+                 withRejecter8:(RCTPromiseRejectBlock)reject){
+    [[V2TIMManager sharedInstance] removeSimpleMsgListener:self];
+    [[V2TIMManager sharedInstance] logout:^{
+        resolve(@"success");
+    } fail:^(int code, NSString *desc) {
+        reject([NSString stringWithFormat:@"%d",code],desc,nil);
+    }];
+}
+
 
 
 -(void)onRecvC2CTextMessage:(NSString *)msgID sender:(V2TIMUserInfo *)info text:(NSString *)text{
     NSDictionary* data=@{
         @"type":@"text",
         @"avatar":info.faceURL,
-        @"name":info.nickName,
+        @"nickName":info.nickName,
         @"userId":info.userID,
         @"content":text,
     };
@@ -144,7 +175,7 @@ RCT_REMAP_METHOD(sendGroupCustomMessage,
     NSDictionary* data1=@{
         @"type":@"custom",
         @"avatar":info.faceURL,
-        @"name":info.nickName,
+        @"nickName":info.nickName,
         @"userId":info.userID,
         @"content":[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding],
     };
@@ -156,18 +187,18 @@ RCT_REMAP_METHOD(sendGroupCustomMessage,
     NSDictionary* data=@{
         @"type":@"text",
         @"avatar":info.faceURL,
-        @"name":info.nickName,
+        @"nickName":info.nickName,
         @"groupId":groupID,
         @"userId":info.userID,
         @"content":text,
     };
-    [self sendEventWithName:@"txim" body:data];
+    [self sendEventWithName:@"" body:data];
 }
 -(void)onRecvGroupCustomMessage:(NSString *)msgID groupID:(NSString *)groupID sender:(V2TIMGroupMemberInfo *)info customData:(NSData *)data{
     NSDictionary* data1=@{
         @"type":@"custom",
         @"avatar":info.faceURL,
-        @"name":info.nickName,
+        @"nickName":info.nickName,
         @"userId":info.userID,
         @"groupId":groupID,
         @"content":[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding],
