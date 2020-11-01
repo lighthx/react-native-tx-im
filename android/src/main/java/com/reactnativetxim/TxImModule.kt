@@ -98,19 +98,12 @@ class TxImModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaMo
     val config = V2TIMSDKConfig()
 
     config.setLogLevel(V2TIMSDKConfig.V2TIM_LOG_INFO)
-    V2TIMManager.getInstance().initSDK(reactApplicationContext, sdkAppID, config, object : V2TIMSDKListener() {
-
-      override fun onConnectSuccess() {
-        V2TIMManager.getInstance().addSimpleMsgListener(listener)
-        promise.resolve("success")
-        // 已经成功连接到腾讯云服务器
-      }
-
-      override fun onConnectFailed(code: Int, error: String) {
-        promise.reject(code.toString(), error)
-        // 连接腾讯云服务器失败
-      }
-    })
+    val result= V2TIMManager.getInstance().initSDK(reactApplicationContext, sdkAppID, config, null)
+    if(result){
+      promise.resolve("success")
+    }else{
+      promise.reject("failed","failed")
+    }
   }
 
   @ReactMethod
