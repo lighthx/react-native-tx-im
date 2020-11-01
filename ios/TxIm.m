@@ -75,7 +75,7 @@ RCT_REMAP_METHOD(sendTextMessage,
     }];
 }
 
-RCT_REMAP_METHOD(sendTextGroupMessage,
+RCT_REMAP_METHOD(sendGroupTextMessage,
                  sendTextMessage_message1:(nonnull NSString *)message
                  sendTextMessage_groupId:(nonnull NSString *)groupId
                  withResolver4:(RCTPromiseResolveBlock)resolve

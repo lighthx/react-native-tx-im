@@ -34,14 +34,14 @@ export const sendTextMessage = async ({
   return await TxIm.sendTextMessage(message, userId);
 };
 
-export const sendTextGroupMessage = async ({
+export const sendGroupTextMessage = async ({
   message,
   groupId,
 }: {
   message: string;
   groupId: string;
 }) => {
-  return await TxIm.sendTextGroupMessage(message, groupId);
+  return await TxIm.sendGroupTextMessage(message, groupId);
 };
 
 export const sendCustomMessage = async ({
