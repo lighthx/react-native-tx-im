@@ -41,7 +41,7 @@ export const sendTextGroupMessage = async ({
   message: string;
   groupId: string;
 }) => {
-  return await TxIm.sendTextMessage(message, groupId);
+  return await TxIm.sendTextGroupMessage(message, groupId);
 };
 
 export const sendCustomMessage = async ({
