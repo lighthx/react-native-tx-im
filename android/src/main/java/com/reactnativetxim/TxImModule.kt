@@ -25,6 +25,7 @@ class TxImModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaMo
   fun joinGroup(groupId:String,promise: Promise){
     V2TIMManager.getInstance().joinGroup(groupId, "", object : V2TIMCallback {
       override fun onSuccess() {
+        V2TIMManager.getInstance().addSimpleMsgListener(listener)
         promise.resolve("success")
       }
 
