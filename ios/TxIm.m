@@ -39,6 +39,7 @@ RCT_REMAP_METHOD(
                           info.faceURL=avatar;
                           info.nickName=nickName;
                           [[V2TIMManager sharedInstance] setSelfInfo:info succ:^{
+                              V2T
                                                         resolve(@"success");
                                                     } fail:^(int code, NSString *desc) {
                                                         reject([NSString stringWithFormat:@"%d",code],desc,nil);

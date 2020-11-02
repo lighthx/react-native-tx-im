@@ -25,7 +25,7 @@ class TxImModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaMo
   fun joinGroup(groupId:String,promise: Promise){
     V2TIMManager.getInstance().joinGroup(groupId, "", object : V2TIMCallback {
       override fun onSuccess() {
-        V2TIMManager.getInstance().addSimpleMsgListener(listener)
+
         promise.resolve("success")
       }
 
@@ -79,6 +79,7 @@ class TxImModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaMo
         info.faceUrl = avatar
         V2TIMManager.getInstance().setSelfInfo(info, object : V2TIMCallback {
           override fun onSuccess() {
+            V2TIMManager.getInstance().addSimpleMsgListener(listener)
             promise.resolve("success")
 
           }
@@ -195,9 +196,10 @@ public class WrapListener( mo : TxImModule): V2TIMSimpleMsgListener() {
 
   }
 
+  @ExperimentalStdlibApi
   override fun onRecvC2CCustomMessage(msgID: String?, sender: V2TIMUserInfo?, customData: ByteArray?) {
     if(customData!=null){
-      val json= customData.toString()
+      val json= customData.decodeToString();
       val map = Arguments.createMap()
       map.putString("type", "custom")
       map.putString("avatar", sender?.faceUrl)
@@ -223,9 +225,10 @@ public class WrapListener( mo : TxImModule): V2TIMSimpleMsgListener() {
 
   }
 
+  @ExperimentalStdlibApi
   override fun onRecvGroupCustomMessage(msgID: String?, groupID: String?, sender: V2TIMGroupMemberInfo?, customData: ByteArray?) {
     if(customData!=null){
-      val json= customData.toString()
+      val json= customData.decodeToString();
       val map = Arguments.createMap()
       map.putString("type", "custom")
       map.putString("avatar", sender?.faceUrl)
