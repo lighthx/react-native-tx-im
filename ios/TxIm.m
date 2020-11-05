@@ -12,7 +12,7 @@ RCT_REMAP_METHOD(init,init_sdkAppId:(nonnull NSNumber*)sdkAppId
                  withResolver:(RCTPromiseResolveBlock)resolve
                  withRejecter:(RCTPromiseRejectBlock)reject)
 {
-    
+
 V2TIMSDKConfig *config = [[V2TIMSDKConfig alloc] init];
 
 config.logLevel = V2TIM_LOG_INFO;
@@ -44,11 +44,11 @@ RCT_REMAP_METHOD(
                                                     } fail:^(int code, NSString *desc) {
                                                         reject([NSString stringWithFormat:@"%d",code],desc,nil);
                                                     }];
-                         
+
                       } fail:^(int code, NSString *desc) {
                           reject([NSString stringWithFormat:@"%d",code],desc,nil);
                       }];
-    
+
 }
 
 RCT_REMAP_METHOD(joinGroup,
@@ -176,7 +176,7 @@ RCT_REMAP_METHOD(quit,
         @"content":[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding],
     };
     [self sendEventWithName:@"txim" body:data1];
-    
+
 }
 -(void)onRecvGroupTextMessage:(NSString *)msgID groupID:(NSString *)groupID sender:(V2TIMGroupMemberInfo *)info text:(NSString *)text{
 
@@ -188,7 +188,7 @@ RCT_REMAP_METHOD(quit,
         @"userId":info.userID,
         @"content":text,
     };
-    [self sendEventWithName:@"" body:data];
+    [self sendEventWithName:@"txim" body:data];
 }
 -(void)onRecvGroupCustomMessage:(NSString *)msgID groupID:(NSString *)groupID sender:(V2TIMGroupMemberInfo *)info customData:(NSData *)data{
     NSDictionary* data1=@{
