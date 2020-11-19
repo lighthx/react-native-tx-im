@@ -63,12 +63,14 @@ RCT_REMAP_METHOD(joinGroup,
         }];
 }
 
+
 RCT_REMAP_METHOD(sendTextMessage,
                  sendTextMessage_message:(nonnull NSString *)message
                  sendTextMessage_userId:(nonnull NSString *)userId
                  withResolver3:(RCTPromiseResolveBlock)resolve
                  withRejecter3:(RCTPromiseRejectBlock)reject
                  ){
+
     [[V2TIMManager sharedInstance] sendC2CTextMessage:message to:userId succ:^{
         resolve(@"success");
     } fail:^(int code, NSString *desc) {
@@ -204,6 +206,10 @@ RCT_REMAP_METHOD(quit,
 
 -(NSArray<NSString*>*)supportedEvents{
     return @[@"txim"];
+}
+- (dispatch_queue_t)methodQueue
+{
+  return dispatch_get_main_queue();
 }
 
 
