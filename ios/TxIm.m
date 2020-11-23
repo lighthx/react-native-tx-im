@@ -145,8 +145,10 @@ RCT_REMAP_METHOD(getGroupMembers,
 }
 
 RCT_REMAP_METHOD(quit,
+                 quitGroupId:(NSString *)groupId
                  withResolver8:(RCTPromiseResolveBlock)resolve
                  withRejecter8:(RCTPromiseRejectBlock)reject){
+    [[V2TIMManager sharedInstance] quitGroup:groupId succ:nil fail:nil];
     [[V2TIMManager sharedInstance] removeSimpleMsgListener:self];
     [[V2TIMManager sharedInstance] logout:^{
         resolve(@"success");
