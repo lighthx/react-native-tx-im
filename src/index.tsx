@@ -1,7 +1,7 @@
 import { NativeModules, NativeEventEmitter } from 'react-native';
 
 const { TxIm } = NativeModules;
-const txImEmitter = new NativeEventEmitter(TxIm);
+let txImEmitter:NativeEventEmitter|undefined;
 export const init = async (sdkAppId: number) => {
   return await TxIm.init(sdkAppId);
 };
@@ -87,8 +87,12 @@ export const quit = async (groupId:string) => {
   return await TxIm.quit(groupId);
 };
 export const addMessageListener = (listener: (msg: Message) => void) => {
+  txImEmitter = new NativeEventEmitter(TxIm);
   txImEmitter.addListener('txim', (message: Message) => listener(message));
 };
 export const removeMessageListener = () => {
-  txImEmitter.removeAllListeners('txim');
+  if(txImEmitter!=null){
+    txImEmitter.removeAllListeners('txim');
+  }
+
 };

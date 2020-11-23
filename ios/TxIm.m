@@ -220,5 +220,11 @@ RCT_REMAP_METHOD(quit,
     return @[@"txim"];
 }
 
+- (dispatch_queue_t)methodQueue
+{
+    return dispatch_queue_create("com.tx.im.sx", DISPATCH_QUEUE_SERIAL);
+
+}
+
 
 @end
