@@ -83,8 +83,8 @@ export const getGroupMembers = async (groupId: string): Promise<Member[]> => {
   return await TxIm.getGroupMembers(groupId);
 };
 
-export const quit = async () => {
-  return await TxIm.quit();
+export const quit = async (groupId:string) => {
+  return await TxIm.quit(groupId);
 };
 export const addMessageListener = (listener: (msg: Message) => void) => {
   txImEmitter.addListener('txim', (message: Message) => listener(message));

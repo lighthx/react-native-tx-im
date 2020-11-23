@@ -165,8 +165,9 @@ class TxImModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaMo
   }
 
   @ReactMethod
-  fun quit(promise: Promise){
+  fun quit(groupId: String,promise: Promise){
     V2TIMManager.getInstance().removeSimpleMsgListener(listener);
+    V2TIMManager.getInstance().quitGroup(groupId,null)
     V2TIMManager.getInstance().logout(object :V2TIMCallback{
       override fun onSuccess() {
         promise.resolve("success")
