@@ -160,70 +160,55 @@ RCT_REMAP_METHOD(quit,
 
 
 -(void)onRecvC2CTextMessage:(NSString *)msgID sender:(V2TIMUserInfo *)info text:(NSString *)text{
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSDictionary* data=@{
-            @"type":@"text",
-            @"avatar":[info.faceURL isEqual:nil]?@"":info.faceURL,
-            @"nickName":info.nickName,
-            @"userId":info.userID,
-            @"content":text,
-        };
-        [self sendEventWithName:@"txim" body:data];
-      });
+    NSDictionary* data=@{
+        @"type":@"text",
+        @"avatar":info.faceURL,
+        @"nickName":info.nickName,
+        @"userId":info.userID,
+        @"content":text,
+    };
+    [self sendEventWithName:@"txim" body:data];
 
 }
 
 
 -(void)onRecvC2CCustomMessage:(NSString *)msgID sender:(V2TIMUserInfo *)info customData:(NSData *)data{
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSDictionary* data1=@{
-            @"type":@"custom",
-            @"avatar":[info.faceURL isEqual:nil]?@"":info.faceURL,
-            @"nickName":info.nickName,
-            @"userId":info.userID,
-            @"content":[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding],
-        };
-        [self sendEventWithName:@"txim" body:data1];
-    });
+    NSDictionary* data1=@{
+        @"type":@"custom",
+        @"avatar":info.faceURL,
+        @"nickName":info.nickName,
+        @"userId":info.userID,
+        @"content":[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding],
+    };
+    [self sendEventWithName:@"txim" body:data1];
 }
 
 -(void)onRecvGroupTextMessage:(NSString *)msgID groupID:(NSString *)groupID sender:(V2TIMGroupMemberInfo *)info text:(NSString *)text{
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSDictionary* data=@{
-            @"type":@"text",
-            @"avatar":[info.faceURL isEqual:nil]?@"":info.faceURL,
-            @"nickName":info.nickName,
-            @"groupId":groupID,
-            @"userId":info.userID,
-            @"content":text,
-        };
-        [self sendEventWithName:@"txim" body:data];
-    });
+    NSDictionary* data=@{
+        @"type":@"text",
+        @"avatar":info.faceURL,
+        @"nickName":info.nickName,
+        @"groupId":groupID,
+        @"userId":info.userID,
+        @"content":text,
+    };
+    [self sendEventWithName:@"txim" body:data];
 
 }
 -(void)onRecvGroupCustomMessage:(NSString *)msgID groupID:(NSString *)groupID sender:(V2TIMGroupMemberInfo *)info customData:(NSData *)data{
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSDictionary* data1=@{
-            @"type":@"custom",
-            @"avatar":[info.faceURL isEqual:nil]?@"":info.faceURL,
-            @"nickName":info.nickName,
-            @"userId":info.userID,
-            @"groupId":groupID,
-            @"content":[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding],
-        };
-        [self sendEventWithName:@"txim" body:data1];
-    });
-
+    NSDictionary* data1=@{
+        @"type":@"custom",
+        @"avatar":info.faceURL,
+        @"nickName":info.nickName,
+        @"userId":info.userID,
+        @"groupId":groupID,
+        @"content":[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding],
+    };
+    [self sendEventWithName:@"txim" body:data1];
 }
 
 -(NSArray<NSString*>*)supportedEvents{
     return @[@"txim"];
-}
-
-- (dispatch_queue_t)methodQueue
-{
-    return dispatch_queue_create("com.tx.im.sx", DISPATCH_QUEUE_SERIAL);
-
 }
 
 
