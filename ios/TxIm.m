@@ -163,7 +163,7 @@ RCT_REMAP_METHOD(quit,
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSDictionary* data=@{
             @"type":@"text",
-            @"avatar":info.faceURL,
+            @"avatar":[info.faceURL isEqual:nil]?@"":info.faceURL,
             @"nickName":info.nickName,
             @"userId":info.userID,
             @"content":text,
@@ -178,7 +178,7 @@ RCT_REMAP_METHOD(quit,
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSDictionary* data1=@{
             @"type":@"custom",
-            @"avatar":info.faceURL,
+            @"avatar":[info.faceURL isEqual:nil]?@"":info.faceURL,
             @"nickName":info.nickName,
             @"userId":info.userID,
             @"content":[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding],
@@ -191,7 +191,7 @@ RCT_REMAP_METHOD(quit,
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSDictionary* data=@{
             @"type":@"text",
-            @"avatar":info.faceURL,
+            @"avatar":[info.faceURL isEqual:nil]?@"":info.faceURL,
             @"nickName":info.nickName,
             @"groupId":groupID,
             @"userId":info.userID,
@@ -205,7 +205,7 @@ RCT_REMAP_METHOD(quit,
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSDictionary* data1=@{
             @"type":@"custom",
-            @"avatar":info.faceURL,
+            @"avatar":[info.faceURL isEqual:nil]?@"":info.faceURL,
             @"nickName":info.nickName,
             @"userId":info.userID,
             @"groupId":groupID,
