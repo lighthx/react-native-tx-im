@@ -188,9 +188,9 @@ public class WrapListener( mo : TxImModule): V2TIMSimpleMsgListener() {
     if(text!=null){
       val map = Arguments.createMap()
       map.putString("type", "text")
-      map.putString("avatar", sender?.faceUrl)
-      map.putString("nickName", sender?.nickName)
-      map.putString("userId", sender?.userID)
+      map.putString("avatar", if (sender?.faceUrl==null) "" else sender.faceUrl)
+      map.putString("nickName", if (sender?.nickName==null) "" else sender.nickName)
+      map.putString("userId", if (sender?.userID==null) "" else sender.userID)
       map.putString("content", text)
       txim.sendEvent(map)
     }
@@ -203,9 +203,9 @@ public class WrapListener( mo : TxImModule): V2TIMSimpleMsgListener() {
       val json= customData.decodeToString();
       val map = Arguments.createMap()
       map.putString("type", "custom")
-      map.putString("avatar", sender?.faceUrl)
-      map.putString("nickName", sender?.nickName)
-      map.putString("userId", sender?.userID)
+      map.putString("avatar", if (sender?.faceUrl==null) "" else sender.faceUrl)
+      map.putString("nickName", if (sender?.nickName==null) "" else sender.nickName)
+      map.putString("userId", if (sender?.userID==null) "" else sender.userID)
       map.putString("content", json)
       txim.sendEvent(map)
     }
@@ -217,9 +217,9 @@ public class WrapListener( mo : TxImModule): V2TIMSimpleMsgListener() {
       val map = Arguments.createMap()
       map.putString("type", "text")
       map.putString("groupId",groupID)
-      map.putString("avatar", sender?.faceUrl)
-      map.putString("nickName", sender?.nickName)
-      map.putString("userId", sender?.userID)
+      map.putString("avatar", if (sender?.faceUrl==null) "" else sender.faceUrl)
+      map.putString("nickName", if (sender?.nickName==null) "" else sender.nickName)
+      map.putString("userId", if (sender?.userID==null) "" else sender.userID)
       map.putString("content", text)
       txim.sendEvent(map)
     }
@@ -232,10 +232,10 @@ public class WrapListener( mo : TxImModule): V2TIMSimpleMsgListener() {
       val json= customData.decodeToString();
       val map = Arguments.createMap()
       map.putString("type", "custom")
-      map.putString("avatar", sender?.faceUrl)
       map.putString("groupId",groupID)
-      map.putString("nickName", sender?.nickName)
-      map.putString("userId", sender?.userID)
+      map.putString("avatar", if (sender?.faceUrl==null) "" else sender.faceUrl)
+      map.putString("nickName", if (sender?.nickName==null) "" else sender.nickName)
+      map.putString("userId", if (sender?.userID==null) "" else sender.userID)
       map.putString("content", json)
       txim.sendEvent(map)
     }
