@@ -162,9 +162,9 @@ RCT_REMAP_METHOD(quit,
 -(void)onRecvC2CTextMessage:(NSString *)msgID sender:(V2TIMUserInfo *)info text:(NSString *)text{
     NSDictionary* data=@{
         @"type":@"text",
-        @"avatar":info.faceURL,
-        @"nickName":info.nickName,
-        @"userId":info.userID,
+        @"avatar":info.faceURL!=nil?info.faceURL:@"",
+        @"nickName":info.nickName!=nil?info.nickName:@"",
+        @"userId":info.userID!=nil?info.userID:@"",
         @"content":text,
     };
     [self sendEventWithName:@"txim" body:data];
@@ -175,9 +175,9 @@ RCT_REMAP_METHOD(quit,
 -(void)onRecvC2CCustomMessage:(NSString *)msgID sender:(V2TIMUserInfo *)info customData:(NSData *)data{
     NSDictionary* data1=@{
         @"type":@"custom",
-        @"avatar":info.faceURL,
-        @"nickName":info.nickName,
-        @"userId":info.userID,
+        @"avatar":info.faceURL!=nil?info.faceURL:@"",
+        @"nickName":info.nickName!=nil?info.nickName:@"",
+        @"userId":info.userID!=nil?info.userID:@"",
         @"content":[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding],
     };
     [self sendEventWithName:@"txim" body:data1];
@@ -186,10 +186,10 @@ RCT_REMAP_METHOD(quit,
 -(void)onRecvGroupTextMessage:(NSString *)msgID groupID:(NSString *)groupID sender:(V2TIMGroupMemberInfo *)info text:(NSString *)text{
     NSDictionary* data=@{
         @"type":@"text",
-        @"avatar":info.faceURL,
-        @"nickName":info.nickName,
+        @"avatar":info.faceURL!=nil?info.faceURL:@"",
+        @"nickName":info.nickName!=nil?info.nickName:@"",
+        @"userId":info.userID!=nil?info.userID:@"",
         @"groupId":groupID,
-        @"userId":info.userID,
         @"content":text,
     };
     [self sendEventWithName:@"txim" body:data];
@@ -198,9 +198,9 @@ RCT_REMAP_METHOD(quit,
 -(void)onRecvGroupCustomMessage:(NSString *)msgID groupID:(NSString *)groupID sender:(V2TIMGroupMemberInfo *)info customData:(NSData *)data{
     NSDictionary* data1=@{
         @"type":@"custom",
-        @"avatar":info.faceURL,
-        @"nickName":info.nickName,
-        @"userId":info.userID,
+        @"avatar":info.faceURL!=nil?info.faceURL:@"",
+        @"nickName":info.nickName!=nil?info.nickName:@"",
+        @"userId":info.userID!=nil?info.userID:@"",
         @"groupId":groupID,
         @"content":[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding],
     };
